@@ -23,6 +23,7 @@ Menambahkan data<br>
 <img src="https://github.com/user-attachments/assets/c99a84a6-8634-48a6-8e24-b016471f6936" width="180" height="320"/><br>
 
 Mengubah data<br>
-
+<img src="https://github.com/user-attachments/assets/c387daf3-9c9e-4f18-9961-904bba75fa07" width="180" height="320"/><br>
 
 Menghapus data<br>
+<img src="https://github.com/user-attachments/assets/6bcd95e8-e869-4078-b63d-ac3ac39c454e" width="180" height="320"/><br>
