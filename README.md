@@ -2,7 +2,7 @@
 
 Screenshot Registrasi
 Mengisi data registrasi<br>
-![Screenshot 2024-10-18 160726](https://github.com/user-attachments/assets/ab23be16-d49b-450b-b3fe-f0ddf39395f7)<br>
+![Screenshot 2024-10-18 160726](https://github.com/user-attachments/assets/ab23be16-d49b-450b-b3fe-f0ddf39395f7 width="150" height="280")<br>
 
 Registrasi berhasil<br>
 ![Screenshot 2024-10-18 160633](https://github.com/user-attachments/assets/b7ffd490-562f-477c-b797-31203fae2345)<br>
