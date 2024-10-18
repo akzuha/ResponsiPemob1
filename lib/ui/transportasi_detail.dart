@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../bloc/transportasi_bloc.dart';
 import '../widget/warning_dialog.dart';
 import '/model/transportasi.dart';
-import '/ui/transportasi_form.dart';
-import 'transportasi_page.dart';
+import 'transportasi_form.dart';
+import 'transportasi_page.dart'; // Mengimpor halaman TransportasiPage
 
 // ignore: must_be_immutable
 class TransportasiDetail extends StatefulWidget {
@@ -18,49 +18,30 @@ class TransportasiDetail extends StatefulWidget {
 class _TransportasiDetailState extends State<TransportasiDetail> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Detail Transportasi',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light, // Tema terang
-        primaryColor: Colors.yellow, // Warna utama kuning
-        fontFamily: 'Helvetica', // Font Helvetica
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.yellow, // Warna AppBar kuning
-          foregroundColor: Colors.black, // Warna teks hitam di AppBar
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.yellow, // Warna teks tombol hitam
-          ),
-        ),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.black), // Warna teks body hitam
-          bodyMedium: TextStyle(color: Colors.black), // Warna teks body hitam
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Transportasi'),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Detail Transportasi'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Text(
-                "Kode : ${widget.transportasi!.jenisTransportasi}",
-                style: const TextStyle(fontSize: 20.0),
-              ),
-              Text(
-                "Nama : ${widget.transportasi!.perusahaanTransportasi}",
-                style: const TextStyle(fontSize: 18.0),
-              ),
-              Text(
-                "Harga : Rp. ${widget.transportasi!.kapasitasTransportasi}",
-                style: const TextStyle(fontSize: 18.0),
-              ),
-              _tombolHapusEdit()
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Jenis : ${widget.transportasi!.vehicle}",
+              style: const TextStyle(fontSize: 20.0),
+            ),
+            Text(
+              "Perusahaan : ${widget.transportasi!.company}",
+              style: const TextStyle(fontSize: 18.0),
+            ),
+            Text(
+              "Kapasitas : ${widget.transportasi!.capacity}",
+              style: const TextStyle(fontSize: 18.0),
+            ),
+            _tombolHapusEdit(),
+            const SizedBox(height: 20), // Jarak antara tombol edit/hapus dan tombol kembali
+            _tombolKembali(), // Tombol Kembali ke halaman transportasi
+          ],
         ),
       ),
     );
@@ -73,9 +54,6 @@ class _TransportasiDetailState extends State<TransportasiDetail> {
         // Tombol Edit
         OutlinedButton(
           child: const Text("EDIT"),
-          style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.yellow, // Warna background tombol kuning
-          ),
           onPressed: () {
             Navigator.push(
               context,
@@ -87,16 +65,27 @@ class _TransportasiDetailState extends State<TransportasiDetail> {
             );
           },
         ),
-        const SizedBox(width: 8.0), // Menambah jarak antara tombol
         // Tombol Hapus
         OutlinedButton(
           child: const Text("DELETE"),
-          style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.yellow, // Warna background tombol kuning
-          ),
           onPressed: () => confirmHapus(),
         ),
       ],
+    );
+  }
+
+  // Membuat Tombol Kembali ke TransportasiPage
+  Widget _tombolKembali() {
+    return OutlinedButton(
+      child: const Text("Kembali ke Daftar Transportasi"),
+      onPressed: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TransportasiPage(), // Arahkan kembali ke halaman TransportasiPage
+          ),
+        );
+      },
     );
   }
 
@@ -107,9 +96,6 @@ class _TransportasiDetailState extends State<TransportasiDetail> {
         //tombol hapus
         OutlinedButton(
           child: const Text("Ya"),
-          style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.yellow, // Warna background tombol kuning
-          ),
           onPressed: () {
             TransportasiBloc.deleteTransportasi(id: widget.transportasi!.id!).then(
                 (value) => {
@@ -127,9 +113,6 @@ class _TransportasiDetailState extends State<TransportasiDetail> {
         //tombol batal
         OutlinedButton(
           child: const Text("Batal"),
-          style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.yellow, // Warna background tombol kuning
-          ),
           onPressed: () => Navigator.pop(context),
         )
       ],

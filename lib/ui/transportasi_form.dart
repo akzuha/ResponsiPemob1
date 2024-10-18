@@ -32,10 +32,10 @@ class _TransportasiFormState extends State<TransportasiForm> {
       setState(() {
         judul = "UBAH PRODUK";
         tombolSubmit = "UBAH";
-        _jenisTransportasiTextboxController.text = widget.transportasi!.jenisTransportasi!;
-        _perusahaanTransportasiTextboxController.text = widget.transportasi!.perusahaanTransportasi!;
+        _jenisTransportasiTextboxController.text = widget.transportasi!.vehicle!;
+        _perusahaanTransportasiTextboxController.text = widget.transportasi!.company!;
         _kapasitasTransportasiTextboxController.text =
-            widget.transportasi!.kapasitasTransportasi.toString();
+            widget.transportasi!.capacity.toString();
       });
     } else {
       judul = "TAMBAH PRODUK";
@@ -45,44 +45,20 @@ class _TransportasiFormState extends State<TransportasiForm> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Form Transportasi',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light, // Tema terang
-        primaryColor: Colors.yellow, // Warna utama kuning
-        fontFamily: 'Helvetica', // Font Helvetica
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.yellow, // Warna AppBar kuning
-          foregroundColor: Colors.black, // Warna teks hitam di AppBar
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black, backgroundColor: Colors.yellow, // Warna teks tombol hitam
-          ),
-        ),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.black), // Warna teks body hitam
-          bodyMedium: TextStyle(color: Colors.black), // Warna teks body hitam
-        ),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(judul),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  _jenisTransportasiTextField(),
-                  _perusahaanTransportasiTextField(),
-                  _kapasitasTransportasiTextField(),
-                  _buttonSubmit(),
-                ],
-              ),
+    return Scaffold(
+      appBar: AppBar(title: Text(judul)),
+      body: SingleChildScrollView(
+      child: Padding(
+         padding: const EdgeInsets.all(8.0),
+        child: Form(
+          key: _formKey,
+            child: Column(
+              children: [
+                _jenisTransportasiTextField(),
+                _perusahaanTransportasiTextField(),
+                _kapasitasTransportasiTextField(),
+                _buttonSubmit(),
+              ],
             ),
           ),
         ),
@@ -90,54 +66,45 @@ class _TransportasiFormState extends State<TransportasiForm> {
     );
   }
 
-  // Membuat Textbox Kode Transportasi
+  // Membuat Textbox Jenis Transportasi
   Widget _jenisTransportasiTextField() {
     return TextFormField(
-      decoration: const InputDecoration(
-        labelText: "Kode Transportasi",
-        labelStyle: TextStyle(color: Colors.black),
-      ),
+      decoration: const InputDecoration(labelText: "Jenis Transportasi"),
       keyboardType: TextInputType.text,
       controller: _jenisTransportasiTextboxController,
       validator: (value) {
         if (value!.isEmpty) {
-          return "Kode Transportasi harus diisi";
+          return "Jenis Transportasi harus diisi";
         }
         return null;
       },
     );
   }
 
-  // Membuat Textbox Nama Transportasi
+  // Membuat Textbox Perusahaan Transportasi
   Widget _perusahaanTransportasiTextField() {
     return TextFormField(
-      decoration: const InputDecoration(
-        labelText: "Nama Transportasi",
-        labelStyle: TextStyle(color: Colors.black),
-      ),
+      decoration: const InputDecoration(labelText: "Perusahaan Transportasi"),
       keyboardType: TextInputType.text,
       controller: _perusahaanTransportasiTextboxController,
       validator: (value) {
         if (value!.isEmpty) {
-          return "Nama Transportasi harus diisi";
+          return "Perusahaan Transportasi harus diisi";
         }
         return null;
       },
     );
   }
 
-  // Membuat Textbox Harga Transportasi
+  // Membuat Textbox Kapasitas Transportasi
   Widget _kapasitasTransportasiTextField() {
     return TextFormField(
-      decoration: const InputDecoration(
-        labelText: "Harga",
-        labelStyle: TextStyle(color: Colors.black),
-      ),
+      decoration: const InputDecoration(labelText: "Kapasitas"),
       keyboardType: TextInputType.number,
       controller: _kapasitasTransportasiTextboxController,
       validator: (value) {
         if (value!.isEmpty) {
-          return "Harga harus diisi";
+          return "Kapasitas harus diisi";
         }
         return null;
       },
@@ -173,9 +140,9 @@ class _TransportasiFormState extends State<TransportasiForm> {
       _isLoading = true;
     });
     Transportasi createTransportasi = Transportasi(id: null);
-    createTransportasi.jenisTransportasi = _jenisTransportasiTextboxController.text;
-    createTransportasi.perusahaanTransportasi = _perusahaanTransportasiTextboxController.text;
-    createTransportasi.kapasitasTransportasi = int.parse(_kapasitasTransportasiTextboxController.text);
+    createTransportasi.vehicle = _jenisTransportasiTextboxController.text;
+    createTransportasi.company = _perusahaanTransportasiTextboxController.text;
+    createTransportasi.capacity = int.parse(_kapasitasTransportasiTextboxController.text);
     TransportasiBloc.addTransportasi(transportasi: createTransportasi).then((value) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => const TransportasiPage()));
@@ -183,7 +150,7 @@ class _TransportasiFormState extends State<TransportasiForm> {
       showDialog(
         context: context,
         builder: (BuildContext context) => const WarningDialog(
-          description: "Simpan gagal, silahkan coba lagi",
+          description: "Simpan data gagal, silahkan coba lagi",
         ),
       );
     });
@@ -197,9 +164,9 @@ class _TransportasiFormState extends State<TransportasiForm> {
       _isLoading = true;
     });
     Transportasi updateTransportasi = Transportasi(id: widget.transportasi!.id!);
-    updateTransportasi.jenisTransportasi = _jenisTransportasiTextboxController.text;
-    updateTransportasi.perusahaanTransportasi = _perusahaanTransportasiTextboxController.text;
-    updateTransportasi.kapasitasTransportasi = int.parse(_kapasitasTransportasiTextboxController.text);
+    updateTransportasi.vehicle = _jenisTransportasiTextboxController.text;
+    updateTransportasi.company = _perusahaanTransportasiTextboxController.text;
+    updateTransportasi.capacity = int.parse(_kapasitasTransportasiTextboxController.text);
     TransportasiBloc.updateTransportasi(transportasi: updateTransportasi).then((value) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => const TransportasiPage()));

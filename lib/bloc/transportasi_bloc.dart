@@ -10,8 +10,8 @@ class TransportasiBloc {
     var jsonObj = json.decode(response.body);
     List<dynamic> listTransportasi = (jsonObj as Map<String, dynamic>)['data'];
     List<Transportasi> transportasis = [];
-    for (int i = 0; i < listTransportasi.length; i++) {
-      transportasis.add(Transportasi.fromJson(listTransportasi[i]));
+    for (var transportasis in listTransportasi) {
+      transportasis.add(Transportasi.fromJson(transportasis));
     }
     return transportasis;
   }
@@ -20,9 +20,9 @@ class TransportasiBloc {
     String apiUrl = ApiUrl.createTransportasi;
 
     var body = {
-      "jenis_kendaraan": transportasi!.jenisTransportasi,
-      "perusahaan_kendaraan": transportasi.perusahaanTransportasi,
-      "kapasitas": transportasi.kapasitasTransportasi.toString()
+      "jenis_kendaraan": transportasi!.vehicle,
+      "perusahaan_kendaraan": transportasi.company,
+      "kapasitas": transportasi.capacity.toString()
     };
 
     var response = await Api().post(apiUrl, body);
@@ -35,9 +35,9 @@ class TransportasiBloc {
     print(apiUrl);
 
     var body = {
-      "jenis_kendaraan": transportasi.jenisTransportasi,
-      "perusahaan_kendaraan": transportasi.perusahaanTransportasi,
-      "kapasitas": transportasi.kapasitasTransportasi
+      "jenis_kendaraan": transportasi.vehicle,
+      "perusahaan_kendaraan": transportasi.company,
+      "kapasitas": transportasi.capacity
     };
     print("Body : $body");
     var response = await Api().put(apiUrl, jsonEncode(body));

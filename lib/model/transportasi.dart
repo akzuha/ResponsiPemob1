@@ -1,14 +1,22 @@
 class Transportasi {
   int? id;
-  String? jenisTransportasi;
-  String? perusahaanTransportasi;
-  int? kapasitasTransportasi;
-  Transportasi({this.id, this.jenisTransportasi, this.perusahaanTransportasi, this.kapasitasTransportasi});
+  String? vehicle;
+  String? company;
+  int? capacity;
+  Transportasi({this.id, this.vehicle, this.company, this.capacity});
   factory Transportasi.fromJson(Map<String, dynamic> obj) {
     return Transportasi(
         id: obj['id'],
-        jenisTransportasi: obj['vehicle'],
-        perusahaanTransportasi: obj['company'],
-        kapasitasTransportasi: obj['capacity']);
+        vehicle: obj['vehicle'],
+        company: obj['company'],
+        capacity: obj['capacity']);
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'vehicle': vehicle,
+      'company': company,
+      'capacity': capacity,
+    };
   }
 }

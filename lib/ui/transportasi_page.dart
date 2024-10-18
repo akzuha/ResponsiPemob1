@@ -116,9 +116,9 @@ class ItemTransportasi extends StatelessWidget {
       },
       child: Card(
         child: ListTile(
-          title: Text(transportasi.jenisTransportasi!),
-          subtitle: Text(transportasi.kapasitasTransportasi.toString()),
-          trailing: Text(transportasi.perusahaanTransportasi!),
+          title: Text(transportasi.vehicle!),
+          subtitle: Text(transportasi.capacity.toString()),
+          trailing: Text(transportasi.company!),
         ),
       ),
     );
