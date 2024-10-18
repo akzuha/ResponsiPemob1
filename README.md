@@ -20,7 +20,7 @@ Menampilkan list data<br>
 Menampilkan detail data<br>
 
 Menambahkan data<br>
-<img src="https://github.com/user-attachments/assets/4465ece4-894f-4e1a-a7ed-4390b382913b" width="180" height="320"/><br>
+<img src="https://github.com/user-attachments/assets/c99a84a6-8634-48a6-8e24-b016471f6936" width="180" height="320"/><br>
 
 Mengubah data<br>
 
